@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quick Note App</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+        <div class="container">
+           <div class="header">
+    <div>
+        <h1>📝 Quick Note</h1>
+        <p>Welcome, {{ session["username"] }} 👋</p>
+    </div>
+
+    <a href="/logout">
+        <button class="logout-btn">Logout</button>
+    </a>
+</div>
+            <div class="note-box">
+    <textarea id="note" placeholder="✍️ Write your thoughts here..."></textarea>
+
+    <button id="saveBtn" class="save-btn">
+    💾 Save Note
+</button>
+</div>
+            <h2>Saved Notes</h2>
+            <input type="text" id="search" placeholder="Search notes..." onkeyup="searchNotes()">
+<br><br>
+            <div id="notes">
+    {% for note in notes %}
+        <div class="note-item">
+    
+<div class="note-content">
+    <h3>📝 {{ note[1] }}</h3>
+    <small>📅 {{ note[2] }}</small>
+</div>
+
+<div class="note-actions">
+
+    <button class="edit-btn" onclick='editNote({{ note[0] }}, "{{ note[1] }}")'>
+        ✏️ Edit
+    </button>
+
+    <button class="delete-btn" onclick="deleteNote({{ note[0] }})">
+        🗑️ Delete
+    </button>
+
+</div>
+    
+    
+            
+    {% endfor %}
+</div>
+        </div>
+        <script src="{{url_for('static',filename='script.js')}}"></script>
+    </body>
+</html>
